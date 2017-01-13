@@ -17,16 +17,16 @@ class AbstractMelonOrder(object):
         self.country_code = country_code
 
     def get_base_price(self):
-        self.base_price = random.randint(5, 10)
-        print self.base_price
+        """Generates a base price and adjusts based on weekday and time of day"""
+
+        base_price = random.randint(5, 10)
         weekday = datetime.today().weekday()
-        print weekday
-        now_time = datetime.now()
-        # now_time = now.time()
-        print now_time.hour()
-        # if weekday >= 0 and weekday <= 4 and now_time.hour() >= 8 and now_time.hour() <= 11:
-        #     self.base_price += 4
-        return self.base_price
+        hour = datetime.now().hour
+
+        if weekday in range(0, 5) and hour in range(8, 12):
+            self.base_price += 4
+
+        return base_price
 
     def get_total(self):
         """Calculate price."""
